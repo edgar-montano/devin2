@@ -1,6 +1,11 @@
 import axio from "axios";
 
-import { REGISTER_SUCCESS, REGISTER_FAIL } from "./types";
+import {
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  USER_LOADED,
+  AUTH_ERROR
+} from "./types";
 import Axios from "axios";
 import { setAlert } from "./alert";
 
