@@ -8,6 +8,8 @@ import ProfileTop from "./ProfileTop";
 import ProfileAbout from "./ProfileAbout";
 import ProfileExperience from "./ProfileExperience.js";
 import ProfileEducation from "./ProfileEducation";
+import ProfileGithub from "./ProfileGithub";
+
 const Profile = ({
   getProfileById,
   profile: { profile, loading },
@@ -68,6 +70,10 @@ const Profile = ({
                 <h4>No experience credentials</h4>
               )}
             </div>
+
+            {profile.githubusername && (
+              <ProfileGithub username={profile.githubusername} />
+            )}
           </div>
         </Fragment>
       )}
