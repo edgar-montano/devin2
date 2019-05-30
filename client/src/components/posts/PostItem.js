@@ -9,6 +9,7 @@ const PostItem = ({
   removeLike,
   deletePost,
   auth,
+  showActions,
   post: { _id, text, name, avatar, user, likes, comments, date }
 }) => {
   return (
@@ -24,33 +25,45 @@ const PostItem = ({
         <p class="post-date">
           Posted on <Moment format="YYYY/MM/DD">{date}</Moment>
         </p>
-        <button onClick={e => addLike(_id)} type="button" class="btn btn-light">
-          <i class="fas fa-thumbs-up" />
-          {"  "}
-          <span> {likes.length}</span>
-        </button>
-        <button
-          onClick={e => removeLike(_id)}
-          type="button"
-          class="btn btn-light"
-        >
-          <i class="fas fa-thumbs-down" />
-        </button>
-        <Link to={`/post/${_id}`} class="btn btn-primary">
-          Discussion <span class="comment-count"> {comments.length}</span>
-        </Link>
-        {!auth.loading && user === auth.user._id && (
-          <button
-            onClick={e => deletePost(_id)}
-            type="button"
-            class="btn btn-danger"
-          >
-            <i class="fas fa-times" />
-          </button>
+        {showActions && (
+          <Fragment>
+            <button
+              onClick={e => addLike(_id)}
+              type="button"
+              class="btn btn-light"
+            >
+              <i class="fas fa-thumbs-up" />
+              {"  "}
+              <span> {likes.length}</span>
+            </button>
+            <button
+              onClick={e => removeLike(_id)}
+              type="button"
+              class="btn btn-light"
+            >
+              <i class="fas fa-thumbs-down" />
+            </button>
+            <Link to={`/post/${_id}`} class="btn btn-primary">
+              Discussion <span class="comment-count"> {comments.length}</span>
+            </Link>
+            {!auth.loading && user === auth.user._id && (
+              <button
+                onClick={e => deletePost(_id)}
+                type="button"
+                class="btn btn-danger"
+              >
+                <i class="fas fa-times" />
+              </button>
+            )}
+          </Fragment>
         )}
       </div>
     </div>
   );
+};
+
+PostItem.defaultProps = {
+  showActions: true
 };
 
 PostItem.propTypes = {
