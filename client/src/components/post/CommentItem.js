@@ -3,9 +3,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
+import { deleteComment } from "../../actions/post";
+
 const CommentItem = ({
   postId,
   comment: { _id, text, name, avatar, user, date },
+  deleteComment,
   auth
 }) => {
   return (
@@ -21,6 +24,15 @@ const CommentItem = ({
         <p class="post-date">
           Posted on <Moment format="YYYY/MM/DD">{date}</Moment>
         </p>
+        {!auth.loading && user === auth.user._id && (
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={e => deleteComment(postId, _id)}
+          >
+            <i className="fas fa-times" />
+          </button>
+        )}
       </div>
     </div>
   );
@@ -29,7 +41,8 @@ const CommentItem = ({
 CommentItem.propTypes = {
   postId: PropTypes.number.isRequired,
   comment: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  deleteComment: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -38,5 +51,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {}
+  { deleteComment }
 )(CommentItem);
